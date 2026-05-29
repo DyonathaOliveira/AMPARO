@@ -1,22 +1,39 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: AMPARO - Sistema de Gestão de Casas de Repouso
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: auth
+    description: Authentication
+  - name: residents
+    description: Resident management
+  - name: medications
+    description: Medication management
+  - name: activities
+    description: Daily activities
+  - name: appointments
+    description: Appointment scheduling
+  - name: handover
+    description: Shift handover
+  - name: alerts
+    description: Alerts and notifications
+  - name: reports
+    description: Reports
+  - name: dashboard
+    description: Dashboard summary
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +41,633 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /auth/login:
+    post:
+      operationId: login
+      tags: [auth]
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginInput"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: Invalid credentials
+
+  /auth/logout:
+    post:
+      operationId: logout
+      tags: [auth]
+      summary: Logout
+      responses:
+        "200":
+          description: Logged out
+
+  /auth/me:
+    get:
+      operationId: getCurrentUser
+      tags: [auth]
+      summary: Get current user
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /dashboard/summary:
+    get:
+      operationId: getDashboardSummary
+      tags: [dashboard]
+      summary: Get dashboard summary
+      responses:
+        "200":
+          description: Dashboard summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSummary"
+
+  /dashboard/alerts:
+    get:
+      operationId: getDashboardAlerts
+      tags: [dashboard]
+      summary: Get active alerts for dashboard
+      responses:
+        "200":
+          description: Active alerts list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Alert"
+
+  /residents:
+    get:
+      operationId: listResidents
+      tags: [residents]
+      summary: List all residents
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [active, inactive]
+      responses:
+        "200":
+          description: Residents list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Resident"
+    post:
+      operationId: createResident
+      tags: [residents]
+      summary: Create a new resident
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResidentInput"
+      responses:
+        "201":
+          description: Resident created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Resident"
+
+  /residents/{id}:
+    get:
+      operationId: getResident
+      tags: [residents]
+      summary: Get resident by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Resident
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Resident"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateResident
+      tags: [residents]
+      summary: Update resident
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResidentUpdate"
+      responses:
+        "200":
+          description: Resident updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Resident"
+    delete:
+      operationId: deleteResident
+      tags: [residents]
+      summary: Delete resident
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /residents/{id}/profile:
+    get:
+      operationId: getResidentProfile
+      tags: [residents]
+      summary: Get full resident profile with history
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Full resident profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResidentProfile"
+
+  /medications:
+    get:
+      operationId: listMedications
+      tags: [medications]
+      summary: List medications
+      parameters:
+        - name: residentId
+          in: query
+          schema:
+            type: integer
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [administered, pending, late]
+      responses:
+        "200":
+          description: Medications list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Medication"
+    post:
+      operationId: createMedication
+      tags: [medications]
+      summary: Add medication to resident
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MedicationInput"
+      responses:
+        "201":
+          description: Medication created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Medication"
+
+  /medications/{id}:
+    patch:
+      operationId: updateMedication
+      tags: [medications]
+      summary: Update medication
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MedicationUpdate"
+      responses:
+        "200":
+          description: Updated medication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Medication"
+    delete:
+      operationId: deleteMedication
+      tags: [medications]
+      summary: Delete medication
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /medications/{id}/administer:
+    post:
+      operationId: administerMedication
+      tags: [medications]
+      summary: Record medication administration
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdministrationInput"
+      responses:
+        "201":
+          description: Administration recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MedicationAdministration"
+
+  /medications/{id}/administrations:
+    get:
+      operationId: getMedicationAdministrations
+      tags: [medications]
+      summary: Get administration history for medication
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Administration history
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MedicationAdministration"
+
+  /activities:
+    get:
+      operationId: listActivities
+      tags: [activities]
+      summary: List daily activities
+      parameters:
+        - name: residentId
+          in: query
+          schema:
+            type: integer
+        - name: date
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [completed, pending, not_done]
+      responses:
+        "200":
+          description: Activities list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Activity"
+    post:
+      operationId: createActivity
+      tags: [activities]
+      summary: Create activity record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ActivityInput"
+      responses:
+        "201":
+          description: Activity created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Activity"
+
+  /activities/{id}:
+    patch:
+      operationId: updateActivity
+      tags: [activities]
+      summary: Update activity
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ActivityUpdate"
+      responses:
+        "200":
+          description: Activity updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Activity"
+
+  /appointments:
+    get:
+      operationId: listAppointments
+      tags: [appointments]
+      summary: List appointments
+      parameters:
+        - name: residentId
+          in: query
+          schema:
+            type: integer
+        - name: date
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [scheduled, confirmed, completed, cancelled]
+      responses:
+        "200":
+          description: Appointments list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Appointment"
+    post:
+      operationId: createAppointment
+      tags: [appointments]
+      summary: Schedule appointment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppointmentInput"
+      responses:
+        "201":
+          description: Appointment scheduled
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Appointment"
+
+  /appointments/{id}:
+    get:
+      operationId: getAppointment
+      tags: [appointments]
+      summary: Get appointment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Appointment
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Appointment"
+    patch:
+      operationId: updateAppointment
+      tags: [appointments]
+      summary: Update appointment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppointmentUpdate"
+      responses:
+        "200":
+          description: Updated appointment
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Appointment"
+    delete:
+      operationId: deleteAppointment
+      tags: [appointments]
+      summary: Cancel/delete appointment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /handovers:
+    get:
+      operationId: listHandovers
+      tags: [handover]
+      summary: List shift handovers
+      responses:
+        "200":
+          description: Handovers list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Handover"
+    post:
+      operationId: createHandover
+      tags: [handover]
+      summary: Create shift handover record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HandoverInput"
+      responses:
+        "201":
+          description: Handover created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Handover"
+
+  /handovers/latest:
+    get:
+      operationId: getLatestHandover
+      tags: [handover]
+      summary: Get latest handover for current shift
+      responses:
+        "200":
+          description: Latest handover
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Handover"
+
+  /handovers/{id}/confirm:
+    post:
+      operationId: confirmHandoverRead
+      tags: [handover]
+      summary: Confirm reading of handover
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Confirmation recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Handover"
+
+  /alerts:
+    get:
+      operationId: listAlerts
+      tags: [alerts]
+      summary: List all alerts
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [medication, activity, appointment, incident]
+        - name: resolved
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Alerts list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Alert"
+
+  /alerts/{id}/resolve:
+    post:
+      operationId: resolveAlert
+      tags: [alerts]
+      summary: Mark alert as resolved
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Alert resolved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Alert"
+
+  /reports/shift:
+    get:
+      operationId: getShiftReport
+      tags: [reports]
+      summary: Get shift report
+      parameters:
+        - name: startDate
+          in: query
+          schema:
+            type: string
+        - name: endDate
+          in: query
+          schema:
+            type: string
+        - name: shift
+          in: query
+          schema:
+            type: string
+            enum: [morning, afternoon, night]
+        - name: residentId
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Shift report
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShiftReport"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +678,551 @@ components:
       required:
         - status
 
+    LoginInput:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+
+    AuthResponse:
+      type: object
+      required: [user, token]
+      properties:
+        user:
+          $ref: "#/components/schemas/User"
+        token:
+          type: string
+
+    User:
+      type: object
+      required: [id, name, email, role]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum: [caregiver, nurse, manager]
+        shift:
+          type: ["string", "null"]
+          enum: [morning, afternoon, night, null]
+        createdAt:
+          type: string
+          format: date-time
+
+    DashboardSummary:
+      type: object
+      required: [totalResidents, pendingMedications, openActivities, todayAppointments, lateAlerts, recentActivity]
+      properties:
+        totalResidents:
+          type: integer
+        pendingMedications:
+          type: integer
+        openActivities:
+          type: integer
+        todayAppointments:
+          type: integer
+        lateAlerts:
+          type: integer
+        recentActivity:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActivityFeedItem"
+        medicationStats:
+          $ref: "#/components/schemas/MedicationStats"
+
+    MedicationStats:
+      type: object
+      properties:
+        administered:
+          type: integer
+        pending:
+          type: integer
+        late:
+          type: integer
+
+    ActivityFeedItem:
+      type: object
+      required: [id, type, description, time]
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+        description:
+          type: string
+        time:
+          type: string
+        residentName:
+          type: ["string", "null"]
+
+    Resident:
+      type: object
+      required: [id, name, dateOfBirth, gender, room, admissionDate, status]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        cpf:
+          type: ["string", "null"]
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+          enum: [male, female, other]
+        room:
+          type: string
+        admissionDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [active, inactive]
+        diagnoses:
+          type: ["string", "null"]
+        allergies:
+          type: ["string", "null"]
+        familyContact:
+          type: ["string", "null"]
+        familyPhone:
+          type: ["string", "null"]
+        clinicalNotes:
+          type: ["string", "null"]
+        photoUrl:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    ResidentInput:
+      type: object
+      required: [name, dateOfBirth, gender, room, admissionDate]
+      properties:
+        name:
+          type: string
+        cpf:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+          enum: [male, female, other]
+        room:
+          type: string
+        admissionDate:
+          type: string
+          format: date
+        diagnoses:
+          type: string
+        allergies:
+          type: string
+        familyContact:
+          type: string
+        familyPhone:
+          type: string
+        clinicalNotes:
+          type: string
+
+    ResidentUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        cpf:
+          type: string
+        dateOfBirth:
+          type: string
+        gender:
+          type: string
+          enum: [male, female, other]
+        room:
+          type: string
+        admissionDate:
+          type: string
+        diagnoses:
+          type: string
+        allergies:
+          type: string
+        familyContact:
+          type: string
+        familyPhone:
+          type: string
+        clinicalNotes:
+          type: string
+        status:
+          type: string
+          enum: [active, inactive]
+
+    ResidentProfile:
+      type: object
+      required: [resident, medications, activities, appointments, handoverNotes]
+      properties:
+        resident:
+          $ref: "#/components/schemas/Resident"
+        medications:
+          type: array
+          items:
+            $ref: "#/components/schemas/Medication"
+        activities:
+          type: array
+          items:
+            $ref: "#/components/schemas/Activity"
+        appointments:
+          type: array
+          items:
+            $ref: "#/components/schemas/Appointment"
+        handoverNotes:
+          type: array
+          items:
+            type: string
+
+    Medication:
+      type: object
+      required: [id, residentId, name, dose, frequency, scheduledTimes, status]
+      properties:
+        id:
+          type: integer
+        residentId:
+          type: integer
+        residentName:
+          type: ["string", "null"]
+        name:
+          type: string
+        dose:
+          type: string
+        frequency:
+          type: string
+        scheduledTimes:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+          enum: [administered, pending, late]
+        notes:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+          format: date-time
+
+    MedicationInput:
+      type: object
+      required: [residentId, name, dose, frequency, scheduledTimes]
+      properties:
+        residentId:
+          type: integer
+        name:
+          type: string
+        dose:
+          type: string
+        frequency:
+          type: string
+        scheduledTimes:
+          type: array
+          items:
+            type: string
+        notes:
+          type: string
+
+    MedicationUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        dose:
+          type: string
+        frequency:
+          type: string
+        scheduledTimes:
+          type: array
+          items:
+            type: string
+        notes:
+          type: string
+        status:
+          type: string
+          enum: [administered, pending, late]
+
+    MedicationAdministration:
+      type: object
+      required: [id, medicationId, administeredAt, administeredBy]
+      properties:
+        id:
+          type: integer
+        medicationId:
+          type: integer
+        administeredAt:
+          type: string
+          format: date-time
+        administeredBy:
+          type: string
+        notes:
+          type: ["string", "null"]
+        isLate:
+          type: boolean
+        lateJustification:
+          type: ["string", "null"]
+
+    AdministrationInput:
+      type: object
+      required: [administeredAt, administeredBy]
+      properties:
+        administeredAt:
+          type: string
+          format: date-time
+        administeredBy:
+          type: string
+        notes:
+          type: string
+        lateJustification:
+          type: string
+
+    Activity:
+      type: object
+      required: [id, residentId, type, date, status]
+      properties:
+        id:
+          type: integer
+        residentId:
+          type: integer
+        residentName:
+          type: ["string", "null"]
+        type:
+          type: string
+          enum: [bath, feeding, hygiene, physiotherapy, medication, other]
+        date:
+          type: string
+          format: date
+        time:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [completed, pending, not_done]
+        observations:
+          type: ["string", "null"]
+        shift:
+          type: string
+          enum: [morning, afternoon, night]
+        createdAt:
+          type: string
+          format: date-time
+
+    ActivityInput:
+      type: object
+      required: [residentId, type, date, shift]
+      properties:
+        residentId:
+          type: integer
+        type:
+          type: string
+          enum: [bath, feeding, hygiene, physiotherapy, medication, other]
+        date:
+          type: string
+          format: date
+        time:
+          type: string
+        shift:
+          type: string
+          enum: [morning, afternoon, night]
+        observations:
+          type: string
+
+    ActivityUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [completed, pending, not_done]
+        time:
+          type: string
+        observations:
+          type: string
+
+    Appointment:
+      type: object
+      required: [id, residentId, date, time, specialty, status]
+      properties:
+        id:
+          type: integer
+        residentId:
+          type: integer
+        residentName:
+          type: ["string", "null"]
+        date:
+          type: string
+          format: date
+        time:
+          type: string
+        specialty:
+          type: string
+        status:
+          type: string
+          enum: [scheduled, confirmed, completed, cancelled]
+        observations:
+          type: ["string", "null"]
+        cancellationReason:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+          format: date-time
+
+    AppointmentInput:
+      type: object
+      required: [residentId, date, time, specialty]
+      properties:
+        residentId:
+          type: integer
+        date:
+          type: string
+          format: date
+        time:
+          type: string
+        specialty:
+          type: string
+        observations:
+          type: string
+
+    AppointmentUpdate:
+      type: object
+      properties:
+        date:
+          type: string
+        time:
+          type: string
+        specialty:
+          type: string
+        status:
+          type: string
+          enum: [scheduled, confirmed, completed, cancelled]
+        observations:
+          type: string
+        cancellationReason:
+          type: string
+
+    Handover:
+      type: object
+      required: [id, shift, date, createdBy, occurrences, isRead]
+      properties:
+        id:
+          type: integer
+        shift:
+          type: string
+          enum: [morning, afternoon, night]
+        date:
+          type: string
+          format: date
+        createdBy:
+          type: string
+        occurrences:
+          type: string
+        pendencies:
+          type: ["string", "null"]
+        isRead:
+          type: boolean
+        readBy:
+          type: ["string", "null"]
+        readAt:
+          type: ["string", "null"]
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+
+    HandoverInput:
+      type: object
+      required: [shift, occurrences]
+      properties:
+        shift:
+          type: string
+          enum: [morning, afternoon, night]
+        occurrences:
+          type: string
+        pendencies:
+          type: string
+
+    Alert:
+      type: object
+      required: [id, type, title, message, severity, resolved, createdAt]
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          enum: [medication, activity, appointment, incident]
+        title:
+          type: string
+        message:
+          type: string
+        severity:
+          type: string
+          enum: [low, medium, high, critical]
+        resolved:
+          type: boolean
+        residentId:
+          type: ["integer", "null"]
+        residentName:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+          format: date-time
+        resolvedAt:
+          type: ["string", "null"]
+          format: date-time
+
+    ShiftReport:
+      type: object
+      required: [period, totalResidents, medicationsAdministered, activitiesCompleted, appointmentsHeld, alerts]
+      properties:
+        period:
+          type: string
+        totalResidents:
+          type: integer
+        medicationsAdministered:
+          type: integer
+        medicationsPending:
+          type: integer
+        medicationsLate:
+          type: integer
+        activitiesCompleted:
+          type: integer
+        activitiesPending:
+          type: integer
+        appointmentsHeld:
+          type: integer
+        appointmentsCancelled:
+          type: integer
+        alerts:
+          type: integer
+        details:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReportEntry"
+
+    ReportEntry:
+      type: object
+      required: [type, residentName, description, timestamp]
+      properties:
+        type:
+          type: string
+        residentName:
+          type: string
+        description:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        responsibleUser:
+          type: ["string", "null"]

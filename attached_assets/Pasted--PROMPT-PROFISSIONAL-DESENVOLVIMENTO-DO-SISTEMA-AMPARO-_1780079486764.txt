@@ -1,0 +1,370 @@
+# PROMPT PROFISSIONAL — DESENVOLVIMENTO DO SISTEMA AMPARO
+
+Desenvolva um sistema web completo chamado **AMPARO**, focado na gestão de casas de repouso e cuidados com idosos.
+
+O sistema deve possuir uma interface moderna, profissional, intuitiva, acessível e responsiva, com foco em usabilidade para cuidadores, enfermeiros e gestores.
+
+IMPORTANTE:
+
+* O projeto é acadêmico de Engenharia de Software.
+* A aplicação deve ser totalmente editável.
+* O código precisa ser organizado, componentizado e limpo.
+* Utilize boas práticas de UX/UI.
+* Desenvolva as telas com navegação funcional entre páginas.
+* Os botões devem possuir interatividade real.
+* O sistema deve simular funcionamento básico real.
+* O layout deve transmitir confiança, cuidado, saúde, organização e segurança.
+* O sistema deve funcionar bem em desktop e tablet.
+* Seguir princípios de acessibilidade WCAG 2.1.
+
+---
+
+## IDENTIDADE VISUAL
+
+* Utilizar a logomarca anexada em TODAS as telas.
+* A logomarca deve aparecer:
+
+  * no topo lateral esquerdo;
+  * ou na navbar/sidebar.
+* O sistema deve possuir predominância de tons:
+
+  * azul institucional;
+  * azul claro;
+  * branco;
+  * cinza suave.
+* Estilo moderno hospitalar/clínico.
+* Interface clean e elegante.
+* Utilizar:
+
+  * cards;
+  * ícones;
+  * tabelas organizadas;
+  * indicadores visuais;
+  * alertas coloridos;
+  * sombras suaves;
+  * bordas arredondadas.
+* Utilizar design semelhante a:
+
+  * sistemas hospitalares modernos;
+  * dashboards SaaS;
+  * interfaces clínicas profissionais.
+
+---
+
+## OBJETIVO DO SISTEMA
+
+O AMPARO é um software de gestão para casas de repouso.
+
+O sistema deve auxiliar:
+
+* cuidadores;
+* enfermeiros;
+* gestores;
+
+nas rotinas de:
+
+* administração de medicamentos;
+* cadastro de residentes;
+* atividades diárias;
+* passagem de plantão;
+* consultas;
+* alertas;
+* relatórios;
+* acompanhamento do turno.
+
+---
+
+## TIPOS DE USUÁRIO
+
+Criar perfis de acesso:
+
+1. Cuidador
+2. Enfermeiro
+3. Gestor
+
+Cada perfil deve visualizar informações específicas.
+
+---
+
+## TELAS OBRIGATÓRIAS
+
+1. TELA DE LOGIN
+
+* Campo e-mail
+* Campo senha
+* Botão entrar
+* Recuperar senha
+* Validação de login
+* Mensagens de erro
+* Visual moderno
+* Fundo institucional azul
+* Logo AMPARO centralizada
+* Simulação de autenticação
+
+---
+
+2. DASHBOARD PRINCIPAL
+
+* Saudação ao usuário
+* Resumo do turno
+* Total de residentes
+* Medicações pendentes
+* Atividades em aberto
+* Alertas do dia
+* Próximas consultas
+* Gráficos simples
+* Cards interativos
+* Menu lateral de navegação
+* Indicadores visuais coloridos
+
+O dashboard deve possuir:
+
+* atualização visual dinâmica;
+* aparência de sistema real;
+* painel administrativo moderno.
+
+---
+
+3. TELA DE CADASTRO DE RESIDENTE
+   Campos:
+
+* Nome completo
+* CPF
+* Data de nascimento
+* Sexo
+* Quarto
+* Data de entrada
+* Diagnósticos
+* Alergias
+* Responsável familiar
+* Telefone
+* Observações clínicas
+
+Funcionalidades:
+
+* validação de campos obrigatórios;
+* mensagens de erro;
+* salvar cadastro;
+* editar cadastro;
+* excluir cadastro;
+* visualizar residente.
+
+Layout:
+
+* formulário dividido em seções;
+* organização hospitalar profissional;
+* responsivo;
+* elegante.
+
+---
+
+4. TELA DE CONTROLE DE MEDICAMENTOS
+   Funcionalidades:
+
+* lista de medicamentos por residente;
+* horário;
+* dose;
+* frequência;
+* responsável;
+* status:
+
+  * administrado;
+  * pendente;
+  * atrasado.
+
+Necessário:
+
+* botão confirmar administração;
+* botão reportar inconsistência;
+* alertas automáticos;
+* histórico de administração.
+
+Cores:
+
+* verde = administrado;
+* amarelo = pendente;
+* vermelho = atrasado.
+
+---
+
+5. TELA DE ATIVIDADES DIÁRIAS
+   Checklist de:
+
+* banho;
+* alimentação;
+* higiene;
+* fisioterapia;
+* medicação;
+* observações.
+
+Necessário:
+
+* marcar atividade;
+* registrar observações;
+* atividades pendentes destacadas.
+
+---
+
+6. TELA DE CONSULTAS
+
+* agendamento de consultas;
+* data;
+* horário;
+* especialidade;
+* residente vinculado;
+* observações;
+* confirmação;
+* status da consulta.
+
+---
+
+7. TELA DE PASSAGEM DE PLANTÃO
+
+* registrar ocorrências;
+* observações;
+* pendências;
+* confirmação de leitura;
+* histórico de trocas de turno.
+
+Visual:
+
+* timeline;
+* cards;
+* histórico organizado.
+
+---
+
+8. TELA DE RELATÓRIOS
+
+* filtros:
+
+  * período;
+  * turno;
+  * residente;
+  * tipo de evento.
+* exportação simulada PDF;
+* gráficos;
+* tabelas;
+* indicadores.
+
+---
+
+9. TELA DE ALERTAS E NOTIFICAÇÕES
+
+* medicamentos atrasados;
+* atividades pendentes;
+* consultas próximas;
+* inconsistências registradas.
+
+Criar:
+
+* notificações visuais;
+* badges;
+* alertas coloridos;
+* central de notificações.
+
+---
+
+10. TELA DE PERFIL DO RESIDENTE
+
+* foto do residente;
+* histórico médico;
+* medicamentos;
+* atividades;
+* consultas;
+* ocorrências;
+* informações gerais.
+
+---
+
+## FUNCIONALIDADES IMPORTANTES
+
+* Navegação funcional entre telas;
+* Sidebar responsiva;
+* Botões clicáveis;
+* Simulação de CRUD;
+* Dados mockados;
+* Experiência fluida;
+* Transições suaves;
+* Componentização;
+* Estrutura organizada.
+
+---
+
+## REGRAS DE NEGÓCIO IMPORTANTES
+
+* Usuário precisa estar autenticado.
+* Campos obrigatórios devem ser validados.
+* CPF não pode duplicar.
+* Administração de medicamento deve registrar:
+
+  * data;
+  * hora;
+  * responsável.
+* Alertas devem aparecer automaticamente.
+* Atividades não realizadas devem gerar pendências.
+* Gestor possui acesso a relatórios.
+* Sistema deve possuir rastreabilidade de ações.
+
+---
+
+## REQUISITOS NÃO FUNCIONAIS
+
+* Interface rápida;
+* Carregamento leve;
+* Responsividade;
+* Usabilidade intuitiva;
+* Acessibilidade;
+* Design moderno;
+* Segurança visual;
+* Estrutura profissional.
+
+---
+
+## TECNOLOGIAS SUGERIDAS
+
+Frontend:
+
+* React
+* Next.js
+* TailwindCSS
+* TypeScript
+
+UI:
+
+* Shadcn/UI
+* Lucide Icons
+
+Backend Simulado:
+
+* Mock API
+* Local storage
+* Dados fake/mockados
+
+---
+
+## ESTILO VISUAL ESPERADO
+
+O sistema deve parecer:
+
+* profissional;
+* moderno;
+* clínico;
+* hospitalar;
+* elegante;
+* corporativo;
+* semelhante a softwares reais SaaS da área da saúde.
+
+A interface deve transmitir:
+
+* segurança;
+* cuidado;
+* confiança;
+* organização;
+* acolhimento.
+
+---
+
+## OBJETIVO FINAL
+
+Gerar um protótipo funcional e navegável do sistema AMPARO, com aparência profissional de software real da área da saúde, contendo todas as telas integradas, identidade visual consistente, navegação funcional e experiência moderna de usuário.
