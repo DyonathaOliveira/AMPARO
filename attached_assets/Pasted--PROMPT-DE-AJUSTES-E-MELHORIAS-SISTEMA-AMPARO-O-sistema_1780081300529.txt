@@ -1,0 +1,329 @@
+# PROMPT DE AJUSTES E MELHORIAS — SISTEMA AMPARO
+
+O sistema desenvolvido está excelente visualmente e estruturalmente. NÃO alterar:
+
+* identidade visual;
+* layout atual;
+* estrutura principal;
+* estilização;
+* componentes já criados;
+* organização das telas;
+* dashboard;
+* cores;
+* responsividade.
+
+As próximas alterações devem ser realizadas de forma PONTUAL, PROFISSIONAL e sem impactar negativamente o restante do projeto.
+
+IMPORTANTE:
+
+* NÃO refatore o sistema inteiro.
+* NÃO recrie telas desnecessariamente.
+* NÃO modifique funcionalidades já funcionando corretamente.
+* Apenas implemente os ajustes abaixo mantendo o padrão visual existente.
+
+---
+
+1. PADRONIZAÇÃO TOTAL PARA PORTUGUÊS (BR)
+
+---
+
+Todo o sistema deve ficar 100% em português brasileiro.
+
+Corrigir TODOS os textos da interface:
+
+* botões;
+* feedbacks;
+* mensagens;
+* alertas;
+* placeholders;
+* status;
+* menus;
+* títulos;
+* tabelas;
+* notificações;
+* badges;
+* labels;
+* validações.
+
+EXEMPLOS:
+
+* “Pending” → “Pendente”
+* “Completed” → “Concluído”
+* “Schedule” → “Agendamento”
+* “Save” → “Salvar”
+* “Edit” → “Editar”
+* “Delete” → “Excluir”
+* “Dashboard” → “Painel”
+* “Shift Change” → “Passagem de Plantão”
+
+Todo o sistema deve parecer desenvolvido originalmente para usuários brasileiros da área da saúde.
+
+---
+
+2. IMPLEMENTAR PERFIL COMPLETO DO GESTOR
+
+---
+
+O login de gestor atualmente NÃO está funcionando.
+
+Corrigir:
+
+* autenticação do gestor;
+* acesso ao painel do gestor;
+* navegação do gestor;
+* permissões do gestor.
+
+Criar visualização exclusiva do gestor com:
+
+* painel administrativo;
+* gerenciamento de usuários;
+* controle institucional;
+* visual corporativo.
+
+O gestor deve conseguir:
+
+### Gerenciar Usuários
+
+* cadastrar cuidadores;
+* cadastrar enfermeiros;
+* editar usuários;
+* excluir usuários;
+* ativar/desativar usuários;
+* visualizar lista de profissionais.
+
+Campos:
+
+* nome;
+* CPF;
+* e-mail;
+* telefone;
+* função;
+* turno;
+* status.
+
+---
+
+3. AJUSTAR FLUXO DE LOGIN
+
+---
+
+Remover seleção manual de perfil no login.
+
+O usuário NÃO deve escolher:
+
+* gestor;
+* cuidador;
+* enfermeiro.
+
+O sistema deve:
+
+* autenticar automaticamente;
+* identificar o perfil pelo login;
+* redirecionar para o painel correto.
+
+Fluxo correto:
+
+1. usuário digita e-mail;
+2. usuário digita senha;
+3. sistema valida credenciais;
+4. sistema identifica perfil;
+5. sistema abre dashboard correto.
+
+Criar login funcional para:
+
+* gestor;
+* cuidador;
+* enfermeiro.
+
+Adicionar usuários mockados para teste.
+
+EXEMPLOS:
+Gestor:
+
+* [admin@amparo.com](mailto:admin@amparo.com)
+* senha: 123456
+
+Cuidador:
+
+* [cuidador@amparo.com](mailto:cuidador@amparo.com)
+* senha: 123456
+
+Enfermeiro:
+
+* [enfermeiro@amparo.com](mailto:enfermeiro@amparo.com)
+* senha: 123456
+
+---
+
+4. ADICIONAR BOTÃO “ADICIONAR ATIVIDADE”
+
+---
+
+Na tela de atividades diárias:
+adicionar botão:
+
+### “+ Adicionar Atividade”
+
+Função:
+
+* abrir modal;
+* cadastrar nova atividade;
+* associar ao residente;
+* selecionar horário;
+* adicionar observações;
+* definir prioridade.
+
+Campos:
+
+* atividade;
+* residente;
+* horário;
+* observações;
+* status;
+* prioridade.
+
+O modal deve seguir o padrão visual atual do sistema.
+
+---
+
+5. IMPLEMENTAR ABA DE ALERTAS
+
+---
+
+Adicionar nova seção:
+
+### “Alertas”
+
+Aba independente no menu lateral.
+
+Essa tela deve possuir:
+
+* alertas críticos;
+* medicamentos atrasados;
+* atividades pendentes;
+* inconsistências;
+* consultas próximas;
+* ocorrências importantes.
+
+Criar:
+
+* filtros;
+* prioridade por cor;
+* notificações visuais;
+* badges;
+* cards.
+
+Cores:
+
+* vermelho → crítico;
+* amarelo → atenção;
+* verde → resolvido.
+
+---
+
+6. IMPLEMENTAR BOTÃO “PASSAGEM DE PLANTÃO”
+
+---
+
+Adicionar botão destacado:
+
+### “Passagem de Plantão”
+
+No menu lateral principal.
+
+Funções:
+
+* registrar ocorrências;
+* registrar pendências;
+* adicionar observações;
+* confirmar leitura;
+* visualizar histórico.
+
+Layout:
+
+* moderno;
+* em formato timeline;
+* cards organizados;
+* visual hospitalar profissional.
+
+---
+
+7. MELHORAR FEEDBACKS VISUAIS
+
+---
+
+Adicionar feedback visual profissional:
+
+* toast notifications;
+* mensagens de sucesso;
+* mensagens de erro;
+* loaders;
+* estados vazios;
+* confirmações visuais.
+
+EXEMPLOS:
+
+* “Cadastro realizado com sucesso”
+* “Medicamento administrado”
+* “Erro ao salvar informações”
+* “Usuário cadastrado”
+
+---
+
+8. MANTER PADRÃO VISUAL EXISTENTE
+
+---
+
+IMPORTANTE:
+Todas as novas implementações devem:
+
+* seguir exatamente o design atual;
+* manter identidade visual existente;
+* manter tons azuis;
+* manter estilo hospitalar;
+* manter componentização atual;
+* manter organização atual.
+
+As novas telas devem parecer parte original do sistema.
+
+---
+
+9. QUALIDADE TÉCNICA
+
+---
+
+Manter:
+
+* código organizado;
+* componentes reutilizáveis;
+* arquitetura limpa;
+* responsividade;
+* acessibilidade;
+* performance;
+* navegação funcional.
+
+Não quebrar:
+
+* rotas;
+* componentes;
+* layout;
+* sidebar;
+* dashboard.
+
+---
+
+10. OBJETIVO FINAL
+
+---
+
+Realizar melhorias profissionais e pontuais no sistema AMPARO, adicionando:
+
+* perfil completo do gestor;
+* login funcional;
+* gerenciamento de profissionais;
+* botão adicionar atividade;
+* aba de alertas;
+* passagem de plantão;
+* sistema totalmente em português;
+
+sem alterar o restante do sistema que já está funcionando corretamente.

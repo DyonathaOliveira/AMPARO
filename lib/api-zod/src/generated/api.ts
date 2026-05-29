@@ -17,6 +17,65 @@ export const HealthCheckResponse = zod.object({
 
 
 /**
+ * @summary List all staff users
+ */
+export const ListUsersResponseItem = zod.object({
+  "id": zod.number(),
+  "name": zod.string(),
+  "email": zod.string(),
+  "role": zod.enum(['nurse', 'caregiver', 'manager']),
+  "shift": zod.union([zod.literal('morning'),zod.literal('afternoon'),zod.literal('night'),zod.literal(null)]).nullish(),
+  "createdAt": zod.coerce.date()
+})
+export const ListUsersResponse = zod.array(ListUsersResponseItem)
+
+
+/**
+ * @summary Create a new user
+ */
+export const CreateUserBody = zod.object({
+  "name": zod.string(),
+  "email": zod.string(),
+  "password": zod.string(),
+  "role": zod.enum(['nurse', 'caregiver', 'manager']),
+  "shift": zod.enum(['morning', 'afternoon', 'night']).optional()
+})
+
+
+/**
+ * @summary Update user
+ */
+export const UpdateUserParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const UpdateUserBody = zod.object({
+  "name": zod.string().optional(),
+  "email": zod.string().optional(),
+  "password": zod.string().optional(),
+  "role": zod.enum(['nurse', 'caregiver', 'manager']).optional(),
+  "shift": zod.union([zod.literal('morning'),zod.literal('afternoon'),zod.literal('night'),zod.literal(null)]).nullish()
+})
+
+export const UpdateUserResponse = zod.object({
+  "id": zod.number(),
+  "name": zod.string(),
+  "email": zod.string(),
+  "role": zod.enum(['nurse', 'caregiver', 'manager']),
+  "shift": zod.union([zod.literal('morning'),zod.literal('afternoon'),zod.literal('night'),zod.literal(null)]).nullish(),
+  "createdAt": zod.coerce.date()
+})
+
+
+/**
+ * @summary Delete user
+ */
+export const DeleteUserParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+
+/**
  * @summary Login
  */
 export const LoginBody = zod.object({

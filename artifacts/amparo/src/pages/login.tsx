@@ -9,12 +9,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import amparoLogo from "@assets/Captura_de_tela_2026-05-29_152616_1780079186016.png";
 
 const loginSchema = z.object({
-  email: z.string().email({ message: "Email inválido" }),
+  email: z.string().email({ message: "E-mail inválido" }),
   password: z.string().min(1, { message: "Senha é obrigatória" }),
 });
 
@@ -29,10 +28,7 @@ export default function Login() {
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    defaultValues: { email: "", password: "" },
   });
 
   const onSubmit = (data: LoginFormValues) => {
@@ -45,15 +41,10 @@ export default function Login() {
           setLocation("/dashboard");
         },
         onError: () => {
-          setErrorMsg("Credenciais inválidas. Tente novamente.");
+          setErrorMsg("E-mail ou senha inválidos. Verifique suas credenciais.");
         },
       }
     );
-  };
-
-  const setDemoUser = (role: string) => {
-    form.setValue("email", `${role}@amparo.com`);
-    form.setValue("password", "password123");
   };
 
   return (
@@ -91,7 +82,7 @@ export default function Login() {
                     <FormItem>
                       <FormLabel>E-mail</FormLabel>
                       <FormControl>
-                        <Input placeholder="nome@amparo.com" {...field} />
+                        <Input placeholder="nome@amparo.com" type="email" autoComplete="username" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -104,14 +95,14 @@ export default function Login() {
                     <FormItem>
                       <FormLabel>Senha</FormLabel>
                       <FormControl>
-                        <Input type="password" placeholder="••••••••" {...field} />
+                        <Input type="password" autoComplete="current-password" placeholder="••••••••" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="w-full h-11 text-base font-medium mt-6"
                   disabled={loginMutation.isPending}
                 >
@@ -121,24 +112,23 @@ export default function Login() {
             </Form>
 
             <div className="mt-8 pt-6 border-t border-border">
-              <p className="text-sm text-center text-muted-foreground mb-4">
+              <p className="text-xs text-center text-muted-foreground mb-3 font-medium uppercase tracking-wider">
                 Ambiente de Demonstração
               </p>
-              <div className="grid grid-cols-3 gap-2">
-                <Button variant="outline" size="sm" onClick={() => setDemoUser("enfermeiro")}>
-                  Enfermeiro
-                </Button>
-                <Button variant="outline" size="sm" onClick={() => setDemoUser("cuidador")}>
-                  Cuidador
-                </Button>
-                <Button variant="outline" size="sm" onClick={() => setDemoUser("gerente")}>
-                  Gerente
-                </Button>
+              <div className="rounded-lg bg-muted/50 p-3 space-y-1 text-xs text-muted-foreground">
+                <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                  <span className="font-medium text-foreground">Gestor:</span>
+                  <span>admin@amparo.com / 123456</span>
+                  <span className="font-medium text-foreground">Enfermeiro:</span>
+                  <span>enfermeiro@amparo.com / 123456</span>
+                  <span className="font-medium text-foreground">Cuidador:</span>
+                  <span>cuidador@amparo.com / 123456</span>
+                </div>
               </div>
             </div>
           </CardContent>
         </Card>
-        
+
         <p className="text-center text-sm text-white/50">
           © {new Date().getFullYear()} AMPARO Cuidado e Bem-Estar
         </p>

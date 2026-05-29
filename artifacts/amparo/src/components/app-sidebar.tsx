@@ -4,12 +4,9 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarItem,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarProvider,
-  SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
 import {
@@ -22,12 +19,25 @@ import {
   Bell,
   BarChart3,
   LogOut,
+  UserCog,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import amparoLogo from "@assets/Captura_de_tela_2026-05-29_152616_1780079186016.png";
 
-const menuItems = [
-  { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
+const roleLabels: Record<string, string> = {
+  nurse: "Enfermeiro(a)",
+  caregiver: "Cuidador(a)",
+  manager: "Gestor(a)",
+};
+
+const shiftLabels: Record<string, string> = {
+  morning: "Manhã",
+  afternoon: "Tarde",
+  night: "Noite",
+};
+
+const baseMenuItems = [
+  { icon: LayoutDashboard, label: "Painel", href: "/dashboard" },
   { icon: Users, label: "Residentes", href: "/residents" },
   { icon: Pill, label: "Medicações", href: "/medications" },
   { icon: CheckSquare, label: "Atividades", href: "/activities" },
@@ -37,10 +47,24 @@ const menuItems = [
   { icon: BarChart3, label: "Relatórios", href: "/reports" },
 ];
 
+const managerMenuItems = [
+  { icon: LayoutDashboard, label: "Painel", href: "/dashboard" },
+  { icon: Users, label: "Residentes", href: "/residents" },
+  { icon: Pill, label: "Medicações", href: "/medications" },
+  { icon: CheckSquare, label: "Atividades", href: "/activities" },
+  { icon: Calendar, label: "Agendamentos", href: "/appointments" },
+  { icon: ClipboardList, label: "Passagem de Plantão", href: "/handover" },
+  { icon: Bell, label: "Alertas", href: "/alerts" },
+  { icon: BarChart3, label: "Relatórios", href: "/reports" },
+  { icon: UserCog, label: "Profissionais", href: "/manager/users" },
+];
+
 export function AppSidebar() {
   const [location] = useLocation();
   const { user, logout } = useAuth();
-  const { toggleSidebar, state } = useSidebar();
+  const { state } = useSidebar();
+
+  const menuItems = user?.role === "manager" ? managerMenuItems : baseMenuItems;
 
   return (
     <Sidebar>
@@ -72,8 +96,9 @@ export function AppSidebar() {
         {user && (
           <div className={`flex flex-col gap-1 mb-4 ${state === "collapsed" ? "hidden" : "block"}`}>
             <span className="font-medium text-sm">{user.name}</span>
-            <span className="text-xs text-muted-foreground capitalize">
-              {user.role} • Turno: {user.shift}
+            <span className="text-xs text-muted-foreground">
+              {roleLabels[user.role] ?? user.role}
+              {user.shift ? ` • Turno: ${shiftLabels[user.shift] ?? user.shift}` : ""}
             </span>
           </div>
         )}

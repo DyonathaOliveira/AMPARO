@@ -5,6 +5,93 @@
  * AMPARO - Sistema de Gestão de Casas de Repouso
  * OpenAPI spec version: 0.1.0
  */
+export type StaffUserRole = typeof StaffUserRole[keyof typeof StaffUserRole];
+
+
+export const StaffUserRole = {
+  nurse: 'nurse',
+  caregiver: 'caregiver',
+  manager: 'manager',
+} as const;
+
+/**
+ * @nullable
+ */
+export type StaffUserShift = typeof StaffUserShift[keyof typeof StaffUserShift] | null;
+
+
+export const StaffUserShift = {
+  morning: 'morning',
+  afternoon: 'afternoon',
+  night: 'night',
+} as const;
+
+export interface StaffUser {
+  id: number;
+  name: string;
+  email: string;
+  role: StaffUserRole;
+  /** @nullable */
+  shift?: StaffUserShift;
+  createdAt: string;
+}
+
+export type StaffUserInputRole = typeof StaffUserInputRole[keyof typeof StaffUserInputRole];
+
+
+export const StaffUserInputRole = {
+  nurse: 'nurse',
+  caregiver: 'caregiver',
+  manager: 'manager',
+} as const;
+
+export type StaffUserInputShift = typeof StaffUserInputShift[keyof typeof StaffUserInputShift];
+
+
+export const StaffUserInputShift = {
+  morning: 'morning',
+  afternoon: 'afternoon',
+  night: 'night',
+} as const;
+
+export interface StaffUserInput {
+  name: string;
+  email: string;
+  password: string;
+  role: StaffUserInputRole;
+  shift?: StaffUserInputShift;
+}
+
+export type StaffUserUpdateRole = typeof StaffUserUpdateRole[keyof typeof StaffUserUpdateRole];
+
+
+export const StaffUserUpdateRole = {
+  nurse: 'nurse',
+  caregiver: 'caregiver',
+  manager: 'manager',
+} as const;
+
+/**
+ * @nullable
+ */
+export type StaffUserUpdateShift = typeof StaffUserUpdateShift[keyof typeof StaffUserUpdateShift] | null;
+
+
+export const StaffUserUpdateShift = {
+  morning: 'morning',
+  afternoon: 'afternoon',
+  night: 'night',
+} as const;
+
+export interface StaffUserUpdate {
+  name?: string;
+  email?: string;
+  password?: string;
+  role?: StaffUserUpdateRole;
+  /** @nullable */
+  shift?: StaffUserUpdateShift;
+}
+
 export interface HealthStatus {
   status: string;
 }

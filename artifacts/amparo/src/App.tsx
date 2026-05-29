@@ -17,6 +17,7 @@ import Appointments from "@/pages/appointments";
 import Handover from "@/pages/handover";
 import Alerts from "@/pages/alerts";
 import Reports from "@/pages/reports";
+import ManagerUsers from "@/pages/manager-users";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,7 @@ function Router() {
       <Route path="/handover" component={() => <ProtectedRoute component={Handover} />} />
       <Route path="/alerts" component={() => <ProtectedRoute component={Alerts} />} />
       <Route path="/reports" component={() => <ProtectedRoute component={Reports} />} />
+      <Route path="/manager/users" component={() => <ProtectedRoute component={ManagerUsers} />} />
       
       <Route component={NotFound} />
     </Switch>
