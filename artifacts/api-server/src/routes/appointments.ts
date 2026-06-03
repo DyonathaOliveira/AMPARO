@@ -77,7 +77,7 @@ router.post("/appointments", async (req, res): Promise<void> => {
 
   const [apt] = await db.insert(appointmentsTable).values({
     residentId: parsed.data.residentId,
-    date: parsed.data.date,
+    date: parsed.data.date instanceof Date ? parsed.data.date.toISOString().split("T")[0] : String(parsed.data.date),
     time: parsed.data.time,
     specialty: parsed.data.specialty,
     status: "scheduled",

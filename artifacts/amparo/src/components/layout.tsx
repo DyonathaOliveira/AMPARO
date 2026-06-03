@@ -43,7 +43,7 @@ export function Layout({ children }: { children: ReactNode }) {
 }
 
 function HandoverBanner() {
-  const { data: latestHandover, refetch } = useGetLatestHandover({ query: { enabled: true } });
+  const { data: latestHandover, refetch } = useGetLatestHandover({});
   const confirmRead = useConfirmHandoverRead();
 
   if (!latestHandover || latestHandover.isRead) {

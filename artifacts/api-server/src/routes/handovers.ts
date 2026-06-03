@@ -47,7 +47,7 @@ router.post("/handovers", async (req, res): Promise<void> => {
   const [handover] = await db.insert(handoversTable).values({
     shift: parsed.data.shift,
     date: today,
-    createdBy: parsed.data.createdBy ?? "Sistema",
+    createdBy: "Sistema",
     occurrences: parsed.data.occurrences,
     pendencies: parsed.data.pendencies ?? null,
     isRead: false,

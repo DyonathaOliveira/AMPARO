@@ -250,7 +250,7 @@ export default function Activities() {
                     </Badge>
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    Turno: {shiftLabels[act.shift] ?? act.shift}
+                    Turno: {act.shift ? (shiftLabels[act.shift] ?? act.shift) : ""}
                     {act.time && ` • Horário: ${act.time}`}
                   </div>
                   {act.observations && (

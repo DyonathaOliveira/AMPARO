@@ -80,7 +80,7 @@ export default function ManagerUsers() {
   };
 
   const onSubmit = (data: UserFormValues) => {
-    const shift = data.shift && data.shift !== "" ? data.shift : undefined;
+    const shift = data.shift && (data.shift as string) !== "" ? data.shift : undefined;
 
     if (editingUser) {
       const updates: Record<string, unknown> = { name: data.name, email: data.email, role: data.role, shift: shift ?? null };

@@ -75,7 +75,7 @@ router.post("/activities", async (req, res): Promise<void> => {
   const [activity] = await db.insert(activitiesTable).values({
     residentId: parsed.data.residentId,
     type: parsed.data.type,
-    date: parsed.data.date,
+    date: parsed.data.date instanceof Date ? parsed.data.date.toISOString().split("T")[0] : String(parsed.data.date),
     time: parsed.data.time ?? null,
     status: "pending",
     shift: parsed.data.shift,

@@ -78,13 +78,16 @@ router.post("/residents", async (req, res): Promise<void> => {
     return;
   }
 
+  const toDateStr = (d: Date | string) =>
+    d instanceof Date ? d.toISOString().split("T")[0] : String(d);
+
   const [resident] = await db.insert(residentsTable).values({
     name: parsed.data.name,
     cpf: parsed.data.cpf ?? null,
-    dateOfBirth: parsed.data.dateOfBirth,
+    dateOfBirth: toDateStr(parsed.data.dateOfBirth),
     gender: parsed.data.gender,
     room: parsed.data.room,
-    admissionDate: parsed.data.admissionDate,
+    admissionDate: toDateStr(parsed.data.admissionDate),
     status: "active",
     diagnoses: parsed.data.diagnoses ?? null,
     allergies: parsed.data.allergies ?? null,

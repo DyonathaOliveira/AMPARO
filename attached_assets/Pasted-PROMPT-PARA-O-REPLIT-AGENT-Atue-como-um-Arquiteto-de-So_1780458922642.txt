@@ -1,0 +1,217 @@
+PROMPT PARA O REPLIT AGENT
+
+Atue como um Arquiteto de Software Sênior, Engenheiro DevOps, Desenvolvedor Full Stack e Especialista em Migração de Aplicações.
+
+Sua missão é transformar o projeto atualmente desenvolvido no Replit em uma aplicação totalmente independente da plataforma Replit, eliminando qualquer dependência de hospedagem, execução ou infraestrutura exclusiva do Replit.
+
+Objetivo Principal
+
+Realize uma análise completa do sistema existente e execute todas as adaptações necessárias para que a aplicação possa ser utilizada, executada, distribuída e mantida fora do ambiente Replit.
+
+O resultado final deve permitir que o sistema funcione de forma autônoma em ambientes locais e externos.
+
+Etapa 1 — Diagnóstico Completo
+
+Antes de qualquer alteração:
+
+Analise toda a arquitetura do projeto.
+Identifique:
+Framework utilizado
+Linguagem principal
+Dependências
+Banco de dados
+Variáveis de ambiente
+APIs externas
+Serviços integrados
+Arquivos específicos do Replit
+Configurações exclusivas da plataforma
+Gere um relatório contendo:
+Estrutura atual
+Dependências críticas
+Riscos de migração
+Ações necessárias para independência total da plataforma
+Etapa 2 — Remoção de Dependências do Replit
+
+Remova ou substitua qualquer recurso dependente do Replit:
+
+.replit
+replit.nix
+configurações internas
+deploys nativos
+autenticações vinculadas ao Replit
+armazenamento específico do Replit
+URLs exclusivas da plataforma
+
+Caso existam dependências ocultas, substitua-as por soluções padrão do mercado.
+
+Etapa 3 — Preparação para Execução Local
+
+Configure o projeto para execução local.
+
+Entregue:
+
+README.md Completo
+
+Incluindo:
+
+Pré-requisitos
+Instalação
+Configuração
+Banco de dados
+Variáveis de ambiente
+Execução local
+Build de produção
+Atualizações futuras
+Arquivos de Configuração
+
+Criar ou corrigir:
+
+package.json
+requirements.txt
+.env.example
+.gitignore
+docker-compose.yml
+Dockerfile
+
+Caso aplicável.
+
+Etapa 4 — Preparação para GitHub
+
+Estruture o projeto para publicação profissional.
+
+Entregue:
+
+Estrutura limpa
+Repositório organizado
+README profissional
+Controle de versão adequado
+Configuração pronta para GitHub
+
+Além disso:
+
+Gere os comandos Git necessários.
+Crie instruções completas para publicação.
+Garanta que qualquer desenvolvedor consiga clonar e executar o projeto sem utilizar Replit.
+Etapa 5 — Versão Offline
+
+Esta etapa é obrigatória.
+
+Analise a viabilidade de transformar o sistema em uma aplicação offline.
+
+Prioridade de implementação:
+
+Opção 1 (Preferencial)
+
+Transformar em aplicação Desktop utilizando:
+
+Electron
+ou
+Tauri
+
+A aplicação deverá:
+
+Rodar sem internet
+Possuir instalador
+Funcionar em Windows
+Armazenar dados localmente quando necessário
+Manter todas as funcionalidades possíveis
+Opção 2
+
+Caso Electron ou Tauri não sejam viáveis:
+
+Criar versão PWA (Progressive Web App)
+Implementar Service Workers
+Cache offline
+Sincronização posterior
+Opção 3
+
+Caso nenhuma das opções anteriores seja possível:
+
+Apresente justificativa técnica detalhada e proponha a melhor alternativa para utilização sem dependência do Replit.
+
+Etapa 6 — Banco de Dados
+
+Analise o banco de dados atual.
+
+Caso exista:
+
+PostgreSQL
+MySQL
+SQLite
+MongoDB
+
+Forneça:
+
+Migração
+Exportação dos dados
+Backup completo
+Scripts de restauração
+Alternativa Local
+
+Caso necessário:
+
+SQLite local
+Banco embarcado
+Banco Dockerizado
+
+Objetivo:
+
+Permitir uso sem infraestrutura do Replit.
+
+Etapa 7 — Empacotamento Final
+
+Entregue uma versão pronta para distribuição contendo:
+
+Estrutura Final
+Código-fonte
+Banco de dados
+Assets
+Dependências
+Executável
+
+Se aplicável:
+
+.exe para Windows
+Instalador completo
+Docker
+
+Gerar ambiente totalmente funcional através de:
+
+docker-compose up -d
+
+Sem necessidade de configurações adicionais.
+
+Critérios de Aceitação
+
+O trabalho somente será considerado concluído quando:
+
+✅ O sistema não depender mais do Replit.
+
+✅ O projeto estiver publicado no GitHub ou preparado para publicação.
+
+✅ Houver documentação completa.
+
+✅ Existir uma forma de execução offline.
+
+✅ O ambiente puder ser reproduzido por qualquer desenvolvedor.
+
+✅ Todas as funcionalidades existentes forem preservadas.
+
+✅ Nenhuma informação do sistema original for perdida durante a migração.
+
+Entrega Esperada
+
+Ao final, forneça:
+
+Relatório técnico da migração.
+Arquitetura atualizada.
+Estrutura de pastas.
+Código atualizado.
+Arquivos de configuração.
+Documentação completa.
+Plano de deploy.
+Plano de backup.
+Plano de execução offline.
+Checklist final validando que o sistema está totalmente independente do Replit.
+
+Não simplifique nenhuma etapa. Execute a migração seguindo padrões profissionais de Engenharia de Software, Arquitetura de Sistemas, DevOps e Distribuição de Aplicações.
