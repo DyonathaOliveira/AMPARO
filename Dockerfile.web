@@ -20,7 +20,7 @@ COPY lib/db/package.json                lib/db/
 COPY artifacts/amparo/package.json      artifacts/amparo/
 COPY scripts/package.json               scripts/
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile --shamefully-hoist
 
 # Stage 3: Build the Vite app
 FROM deps AS builder
