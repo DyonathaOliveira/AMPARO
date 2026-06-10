@@ -1,0 +1,142 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "AMPARO: Iniciar API",
+      "type": "shell",
+      "command": "pnpm --filter @workspace/api-server run dev",
+      "options": {
+        "env": {
+          "PORT": "8080",
+          "NODE_ENV": "development"
+        }
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "label": "API Server",
+        "group": "amparo",
+        "panel": "dedicated",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "AMPARO: Iniciar Frontend",
+      "type": "shell",
+      "command": "pnpm --filter @workspace/amparo run dev",
+      "options": {
+        "env": {
+          "PORT": "3000",
+          "BASE_PATH": "/"
+        }
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "label": "Frontend (Vite)",
+        "group": "amparo",
+        "panel": "dedicated",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "AMPARO: Iniciar Tudo",
+      "dependsOn": ["AMPARO: Iniciar API", "AMPARO: Iniciar Frontend"],
+      "dependsOrder": "parallel",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "AMPARO: Typecheck",
+      "type": "shell",
+      "command": "pnpm run typecheck",
+      "problemMatcher": ["$tsc"],
+      "presentation": {
+        "label": "Typecheck",
+        "panel": "dedicated",
+        "reveal": "always"
+      },
+      "group": "test"
+    },
+    {
+      "label": "AMPARO: Instalar Dependências",
+      "type": "shell",
+      "command": "pnpm install",
+      "problemMatcher": [],
+      "presentation": {
+        "label": "pnpm install",
+        "panel": "dedicated",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "AMPARO: Codegen (OpenAPI)",
+      "type": "shell",
+      "command": "pnpm --filter @workspace/api-spec run codegen",
+      "problemMatcher": [],
+      "presentation": {
+        "label": "Codegen",
+        "panel": "dedicated",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "AMPARO: DB Push (Drizzle)",
+      "type": "shell",
+      "command": "pnpm --filter @workspace/db run push",
+      "problemMatcher": [],
+      "presentation": {
+        "label": "DB Push",
+        "panel": "dedicated",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "AMPARO: Docker Compose Up",
+      "type": "shell",
+      "command": "docker compose up -d",
+      "problemMatcher": [],
+      "presentation": {
+        "label": "Docker",
+        "panel": "dedicated",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "AMPARO: Docker Compose Down",
+      "type": "shell",
+      "command": "docker compose down",
+      "problemMatcher": [],
+      "presentation": {
+        "label": "Docker",
+        "panel": "shared",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "AMPARO: Backup do Banco",
+      "type": "shell",
+      "windows": {
+        "command": "powershell -ExecutionPolicy Bypass -File .\\scripts\\db-backup.ps1"
+      },
+      "linux": {
+        "command": "./scripts/db-backup.sh"
+      },
+      "osx": {
+        "command": "./scripts/db-backup.sh"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "label": "DB Backup",
+        "panel": "dedicated",
+        "reveal": "always"
+      }
+    }
+  ]
+}

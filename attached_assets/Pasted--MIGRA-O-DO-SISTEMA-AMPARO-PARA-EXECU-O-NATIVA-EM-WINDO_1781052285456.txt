@@ -1,0 +1,223 @@
+# MIGRAÇÃO DO SISTEMA AMPARO PARA EXECUÇÃO NATIVA EM WINDOWS E PUBLICAÇÃO NO GITHUB
+
+Atue como um Engenheiro de Software Sênior, Arquiteto de Sistemas, Especialista em Ambientes Windows, DevOps e Especialista em Migração de Aplicações.
+
+Sua missão é adaptar o projeto atual do Sistema Amparo para que ele possa ser executado integralmente em ambiente Windows através do Visual Studio Code, sem qualquer dependência obrigatória do ambiente Linux ou da infraestrutura do Replit.
+
+## OBJETIVO PRINCIPAL
+
+Realizar todas as adaptações necessárias para que o sistema possa ser:
+
+* Executado localmente em Windows 10 e Windows 11;
+* Aberto e executado diretamente no Visual Studio Code;
+* Mantido em desenvolvimento fora do Replit;
+* Compartilhado com outros desenvolvedores Windows sem dificuldades;
+* Publicado e atualizado no GitHub;
+* Executado preservando 100% das funcionalidades atuais.
+
+IMPORTANTE:
+
+NÃO alterar:
+
+* Interface do sistema;
+* Regras de negócio;
+* Fluxos operacionais;
+* Banco de dados;
+* Funcionalidades existentes;
+* Estrutura lógica do produto.
+
+O comportamento do sistema deve permanecer exatamente o mesmo.
+
+As únicas alterações permitidas são as necessárias para garantir compatibilidade e execução em ambiente Windows.
+
+---
+
+# ETAPA 1 — DIAGNÓSTICO TÉCNICO
+
+Analise integralmente o projeto atual e identifique:
+
+* Dependências Linux;
+* Scripts incompatíveis com Windows;
+* Comandos Shell específicos;
+* Arquivos .sh;
+* Configurações do Replit;
+* Dependências do replit.nix;
+* Dependências de ambiente Unix/Linux;
+* Configurações de paths incompatíveis com Windows;
+* Bibliotecas que exijam substituição para compatibilidade.
+
+Gerar um relatório técnico contendo:
+
+* Problemas encontrados;
+* Impactos;
+* Solução aplicada;
+* Justificativa técnica.
+
+---
+
+# ETAPA 2 — ADAPTAÇÃO PARA WINDOWS
+
+Realize todas as correções necessárias para que o sistema funcione em Windows.
+
+Verificar e corrigir:
+
+## Paths
+
+Substituir qualquer dependência de:
+
+* /
+* caminhos absolutos Linux
+* referências incompatíveis
+
+por soluções multiplataforma.
+
+## Scripts
+
+Converter scripts Linux para versões compatíveis com Windows.
+
+Quando necessário:
+
+* .bat
+* PowerShell
+* npm scripts multiplataforma
+* Python multiplataforma
+
+## Dependências
+
+Garantir instalação automática através de:
+
+* npm install
+* pip install
+* package manager correspondente
+
+sem necessidade de configurações manuais complexas.
+
+---
+
+# ETAPA 3 — EXECUÇÃO PELO VISUAL STUDIO CODE
+
+Preparar o projeto para que qualquer desenvolvedor consiga:
+
+1. Clonar o repositório.
+2. Abrir no VS Code.
+3. Executar instalação.
+4. Iniciar o sistema.
+
+Criar:
+
+## README_WINDOWS.md
+
+Contendo:
+
+* Pré-requisitos;
+* Instalação;
+* Configuração;
+* Execução;
+* Atualizações;
+* Solução de problemas.
+
+---
+
+# ETAPA 4 — VARIÁVEIS DE AMBIENTE
+
+Verificar todas as variáveis utilizadas.
+
+Criar:
+
+.env.example
+
+Documentando todas as variáveis necessárias para execução local.
+
+Garantir compatibilidade com Windows.
+
+---
+
+# ETAPA 5 — VALIDAÇÃO COMPLETA
+
+Executar testes completos após as alterações.
+
+Validar:
+
+* Login;
+* Cadastro;
+* Banco de dados;
+* APIs;
+* Uploads;
+* Downloads;
+* Relatórios;
+* Dashboards;
+* Integrações;
+* Funcionalidades administrativas;
+* Funcionalidades operacionais.
+
+Nenhuma funcionalidade pode ser degradada.
+
+---
+
+# ETAPA 6 — GITHUB
+
+Após concluir a migração:
+
+Atualizar automaticamente o repositório GitHub do Sistema Amparo.
+
+Realizar:
+
+1. Commit de todas as alterações.
+2. Organização dos arquivos.
+3. Atualização da documentação.
+4. Push para a branch principal do projeto.
+
+Utilizar mensagens de commit profissionais.
+
+Exemplo:
+
+"feat: add full Windows compatibility and VS Code local execution support"
+
+ou
+
+"chore: migrate project from Linux-only environment to Windows-compatible architecture"
+
+---
+
+# ETAPA 7 — ENTREGA FINAL
+
+Ao finalizar, apresentar:
+
+## Relatório Técnico
+
+Contendo:
+
+* Alterações realizadas;
+* Arquivos modificados;
+* Dependências ajustadas;
+* Compatibilidade obtida.
+
+## Checklist Final
+
+Confirmando:
+
+✅ Compatível com Windows 10
+
+✅ Compatível com Windows 11
+
+✅ Executável via VS Code
+
+✅ Sem dependência obrigatória do Linux
+
+✅ Sem dependência obrigatória do Replit
+
+✅ Funcionalidades preservadas
+
+✅ Banco de dados preservado
+
+✅ GitHub atualizado
+
+✅ Documentação criada
+
+---
+
+# RESTRIÇÃO CRÍTICA
+
+Sob nenhuma hipótese alterar funcionalidades, telas, fluxos, regras de negócio, arquitetura funcional ou experiência do usuário do Sistema Amparo.
+
+A missão é exclusivamente tornar o projeto compatível com Windows e pronto para desenvolvimento local via Visual Studio Code, mantendo integralmente o comportamento atual do sistema.
